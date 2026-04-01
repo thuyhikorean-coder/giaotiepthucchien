@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1000 Câu Giao Tiếp Tiếng Hàn Du Lịch | Hikorean</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Lead Auth Screen -->
+    <div id="authScreen" class="auth-wrapper">
+        <div class="auth-box">
+            <div class="auth-logo"><i class="fa-solid fa-plane-up"></i> Hikorean</div>
+            <h2>Hành Trang Du Lịch</h2>
+            <p>Điền thông tin để mở khóa 1000 Câu Giao Tiếp thực tế.</p>
+            
+            <div class="form-group">
+                <input type="text" id="leadName" placeholder="Họ và Tên của bạn" required>
+            </div>
+            
+            <div class="form-group">
+                <input type="tel" id="leadZalo" placeholder="Số điện thoại / Zalo" required>
+            </div>
+            
+            <div class="form-group">
+                <select id="leadGoal" required style="width: 100%; padding: 0.75rem 1rem; border: 1.5px solid rgba(121, 85, 72, 0.3); border-radius: 12px; font-family: inherit; font-size: 1.1rem; outline: none; transition: all 0.2s; background: #fff; color: var(--text-muted); cursor: pointer;" onchange="this.style.color = 'var(--text-main)';">
+                    <option value="" disabled selected hidden>Bạn học Tiếng Hàn để làm gì?</option>
+                    <option value="Du học Hàn Quốc">Du học Hàn Quốc</option>
+                    <option value="Lấy bằng TOPIK">Lấy bằng TOPIK</option>
+                    <option value="Giao tiếp / Đi làm / Du lịch">Giao tiếp / Đi làm / Du lịch</option>
+                    <option value="Xuất khẩu lao động">Xuất khẩu lao động</option>
+                    <option value="Sở thích / Xem phim">Sở thích / Xem phim / Idol</option>
+                </select>
+            </div>
+            
+            <div class="social-tasks-container" style="margin: 15px 0; padding: 12px; background: rgba(255, 217, 0, 0.1); border-radius: 10px; border: 1.5px dashed var(--primary);">
+                <p style="font-weight: 700; text-align: center; margin-bottom: 10px; color: var(--text-main); font-size: 1rem;">Nhiệm vụ bắt buộc 🎉</p>
+                
+                <a href="https://www.facebook.com/groups/1491006069337574" target="_blank" id="btnJoinFB" class="social-btn" style="display: flex; align-items: center; justify-content: center; width: 100%; padding: 10px; margin-bottom: 8px; background: #1877F2; color: white; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.95rem; transition: all 0.2s; box-shadow: var(--shadow-sm);">
+                    <i class="fab fa-facebook-f" style="margin-right: 10px; font-size: 1.1rem;"></i> 1. Vào Group Fb nhận Tài Liệu
+                </a>
+                
+                <a href="https://zalo.me/2705845433559780" target="_blank" id="btnJoinZalo" class="social-btn" style="display: flex; align-items: center; justify-content: center; width: 100%; padding: 10px; background: #0068FF; color: white; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.95rem; transition: all 0.2s; box-shadow: var(--shadow-sm);">
+                     <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" style="width:18px; height:18px; filter:brightness(0) invert(1); margin-right: 10px;" alt="Zalo"> 2. Theo dõi Zalo OA Hikorean
+                </a>
+            </div>
+            
+            <div class="form-group" style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 15px;">
+                <input type="checkbox" id="leadConsult" style="width: 20px; height: 20px; margin-top: 2px; cursor: pointer; accent-color: var(--primary);">
+                <label for="leadConsult" style="font-weight: 500; font-size: 0.95rem; line-height: 1.5; color: var(--text-main); cursor: pointer;">Hãy tư vấn cho tôi lộ trình học bài bản</label>
+            </div>
+            
+            <div id="leadError" class="auth-error" style="display: none;"></div>
+            
+            <button class="btn btn-primary" id="leadLoginBtn" style="width: 100%; font-size: 1.1rem; padding: 1rem; border-radius: 12px;">VÀO HỌC NGAY 🚀</button>
+        </div>
+    </div>
+
+    <!-- Home Screen (Wide Layout Grid) -->
+    <div class="app-container home-container" id="homeScreen" style="display: none;">
+        <div class="home-header">
+            <div class="home-logo"><i class="fa-solid fa-crown"></i> Hikorean Premium</div>
+            <h1 class="home-title">1000 Câu Tiếng Hàn</h1>
+            <div class="home-subtitle" id="homeWelcomeMessage">Xin chào! Hành trình chinh phục Hàn Quốc bắt đầu từ đây 🇰🇷</div>
+        </div>
+        
+        <div class="topics-grid" id="topicsGrid">
+            <!-- Topics will be dynamically populated here by Javascript -->
+        </div>
+    </div>
+
+    <!-- Main Flashcard Screen (Centered Layout) -->
+    <div class="app-container flashcard-wrapper" id="mainApp" style="display: none;">
+        
+        <div class="flashcard-main-container">
+            <!-- Header -->
+            <header class="app-header">
+                <button class="back-btn" id="backToHomeBtn" title="Trở về danh sách"><i class="fa-solid fa-house"></i></button>
+                <div class="home-logo" style="margin-bottom: 0.5rem; border: none; background: rgba(255,255,255,0.8);"><i class="fa-solid fa-plane-departure"></i> Giao Tiếp Du Lịch</div>
+                <h1 class="app-title" id="currentTopicTitle">Chủ đề</h1>
+                <div class="progress-container">
+                    <div class="progress-text">
+                        <span>Tiến độ học tập</span>
+                        <span id="progressPercentage">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-stats">
+                        Đã học: <strong id="learnedCount">0</strong> / <span id="totalCount">10</span> câu
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="flashcard-section">
+                
+                <div class="flashcard" id="flashcard">
+                    <div class="card-header">
+                        <span class="badge topic-badge" id="cardTopic">Chủ đề</span>
+                        <span class="badge level-badge" id="cardLevel">STT: 1</span>
+                        <button id="bookmarkBtn" class="btn-icon bookmark-btn" title="Đánh dấu"><i class="fa-solid fa-star"></i></button>
+                    </div>
+                    
+                    <div class="korean-text" id="koreanText">안녕하세요</div>
+                    
+                    <!-- Toggle Meaning Button -->
+                    <button id="toggleMeaningBtn" class="toggle-btn">
+                        <span style="font-size: 1.1rem; color: var(--text-main);">Bạn đã thuộc câu này chưa ?</span>
+                        <span>Nhấn để lật đáp án</span> 
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </button>
+                    
+                    <!-- Hidden details -->
+                    <div class="card-details" id="cardDetails">
+                        <div class="romanization" id="romanization"></div>
+                        <div class="vietnamese" id="vietnamese">Xin chào</div>
+                    </div>
+
+                    <div class="card-actions">
+                        <button class="play-btn" id="playAudioBtn" title="Nghe phát âm chuẩn">
+                            <i class="fa-solid fa-headphones"></i>
+                            <span>Nghe Giọng Gốc</span>
+                        </button>
+                        
+                        <button class="btn btn-primary" id="markLearnedBtn" style="flex: 1.2;">
+                            <i class="fa-solid fa-check-circle"></i> <span>Đã Nhớ</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="nav-controls">
+                    <button class="nav-btn" id="prevBtn" disabled>
+                        <i class="fa-solid fa-chevron-left"></i> <span>Câu trước</span>
+                    </button>
+                    <div class="card-counter">
+                        <span id="currentIndex">1</span> / <span id="totalCards">10</span>
+                    </div>
+                    <button class="nav-btn" id="nextBtn">
+                        <span>Câu tiếp</span> <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
