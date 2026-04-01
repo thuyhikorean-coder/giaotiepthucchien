@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         eHomeScreen.style.flexDirection = 'column';
         
         if (loggedInLead && eHomeWelcomeMessage) {
-            eHomeWelcomeMessage.textContent = `Xin chào ${loggedInLead.name}! Chọn chủ đề để bắt đầu.`;
+            eHomeWelcomeMessage.textContent = `Xin chào các đồng âm, hãy chọn chủ đề để bắt đầu luyện nói nhé`;
         }
 
         renderTopicsGrid();
